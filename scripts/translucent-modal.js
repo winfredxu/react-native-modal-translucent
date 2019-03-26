@@ -19,8 +19,8 @@ if (__dirname.search("node_modules") === -1) {
 fs.readFile(modal, "utf8", function(err, data) {
   if (data.search("TranslucentModalHostView") === -1) {
     let str = data.replace(
-      /^ *'RCTModalHostView'*$/gm,
-      `Platform.OS === 'ios' ? 'RCTModalHostView' : 'TranslucentModalHostView',`
+      'RCTModalHostView',
+      `Platform.OS === 'ios' ? 'RCTModalHostView' : 'TranslucentModalHostView'`
     );
     fs.outputFile(modal, str);
   }
