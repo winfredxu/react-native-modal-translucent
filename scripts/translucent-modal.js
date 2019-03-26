@@ -1,5 +1,6 @@
 const fs = require("fs-extra");
 const path = require("path");
+import {requireNativeComponent} from 'react-native'
 
 let modal;
 if (__dirname.search("node_modules") === -1) {
