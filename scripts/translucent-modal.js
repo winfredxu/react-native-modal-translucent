@@ -1,25 +1,26 @@
 const fs = require("fs-extra");
 const path = require("path");
-import {requireNativeComponent} from 'react-native'
+
+const requireNativeComponent = require('requireNativeComponent');
 
 let modal;
 if (__dirname.search("node_modules") === -1) {
   modal = path.resolve(
     __dirname,
-    "../node_modules/react-native/Libraries/Modal/Modal.js"
+    "../node_modules/react-native/Libraries/Modal/RCTModalHostViewNativeComponent.js"
   );
 } else {
   modal = path.resolve(
     __dirname,
-    "../../react-native/Libraries/Modal/Modal.js"
+    "../../react-native/Libraries/Modal/RCTModalHostViewNativeComponent.js"
   );
 }
 
 fs.readFile(modal, "utf8", function(err, data) {
   if (data.search("TranslucentModalHostView") === -1) {
     let str = data.replace(
-      /^ *const +RCTModalHostView.*$/gm,
-      `const RCTModalHostView = Platform.OS === 'ios' ? requireNativeComponent('RCTModalHostView') : requireNativeComponent('TranslucentModalHostView');`
+      /^ *'RCTModalHostView'*$/gm,
+      `Platform.OS === 'ios' ? 'RCTModalHostView' : 'TranslucentModalHostView',`
     );
     fs.outputFile(modal, str);
   }
