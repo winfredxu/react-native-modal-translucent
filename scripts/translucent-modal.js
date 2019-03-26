@@ -16,12 +16,12 @@ if (__dirname.search("node_modules") === -1) {
 
 fs.readFile(modal, "utf8", function(err, data) {
   if (data.search("TranslucentModalHostView") === -1) {
-    let str = data.replace(
+    var str = data.replace(
       `'RCTModalHostView'`,
       `Platform.OS === 'ios' ? 'RCTModalHostView' : 'TranslucentModalHostView'`
     );
 
-    str = data.replace(
+    str = str.replace(
       `'use strict';`,
       `'use strict'; import { Platform } from 'react-native';`
     )
